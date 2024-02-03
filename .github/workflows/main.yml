@@ -17,4 +17,5 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-                      cat /apps/hello.txt
+                      cd /apps
+                      cat hello.txt
