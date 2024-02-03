@@ -11,14 +11,6 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Deploy to server
-        run: |
-          ssh -i id_rsa root@185.43.6.202 "cd /apps/teletapp_webapp/teletapp_webapp && git pull && docker compose up -d"
-
-      - name: Deploy to dev server
-        run: |
-          ssh -i id_rsa root@185.43.6.202 "cd /apps/teletapp_webapp/dev_teletapp_webapp && git pull && docker compose up -d"
-
-      - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
