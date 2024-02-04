@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     tags:
-      - 'v*'
+      - 'v*-dev'
 
 jobs:
   build:
@@ -11,15 +11,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
-      - name: Get tag
-        id: get_tag
-        run: echo "tag=${{ github.ref }}"
-
-      - name: GitHub Tag Name example
-        run: |
-          echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
-          echo "Tag name from github.ref_name: ${{  github.ref_name }}"
          
       - name: Deploy to server
         uses: appleboy/ssh-action@master
@@ -29,10 +20,5 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /apps
-            {{ if contains(steps.get_tag.outputs.tag, 'dev') }}
-            ls
-            {{ else }}
-            cd /apps
             cat hello.txt
             cat hello.txt
-            {{ end }}
