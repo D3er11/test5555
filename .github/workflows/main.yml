@@ -16,6 +16,11 @@ jobs:
         id: get_tag
         run: echo "tag=${{ github.ref }}"
 
+      - name: GitHub Tag Name example
+        run: |
+          echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
+          echo "Tag name from github.ref_name: ${{  github.ref_name }}"
+         
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
