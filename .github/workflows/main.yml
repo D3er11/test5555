@@ -13,6 +13,17 @@ jobs:
       - uses: actions/checkout@v3
          
       - name: Deploy to server
+        if: github.ref_type == 'tag' && contains(github.ref_name, 'dev')
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /apps
+            cat hello.txt
+
+      - name: Deploy to server prod env
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
